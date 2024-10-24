@@ -14,20 +14,23 @@ to load the library. You can now begin using all the classes and utilities defin
 
 #### Print calls and the buffer
 
-`Terminal.Print(s, end = "")`{:.python}
+```python
+Terminal.Print(s, end = "")
+```
 print the text into the screen buffer
 `s`: the text to print
 `end`: the suffix, used for automatically inserting spaces or newlines (default: `""`)
-
+<hr>
 ```python
 Terminal.EmptyBuffer()
 ```
 clear the screen buffer
-
+<hr>
 ```python
 Terminal.Flush()
 ```
 print the buffer onto the screen
+<hr>
 
 #### Escape sequences
 
@@ -38,23 +41,27 @@ generate an escape sequence with a given code/parameters (for more insight check
 `s`: the escape code
 `inst`: whether to execute the command instantaneously or add it to the buffer (default: `False`)
 `gen`: whether to print the command or generate a string and return it (default: `False`)
-
+<br>
 *The* `inst` *and* `gen` *parameters apply for all other functions in this section*
+<hr>
 
 ```python
 Terminal.Clear()
 ```
 clear the contents of the screen (**not the buffer**)
+<hr>
 
 ```python
 Terminal.SaveScreen()
 ```
 save the current screen contents internally
+<hr>
 
 ```python
 Terminal.LoadScreen()
 ```
 load the saved screen contents back
+<hr>
 
 ### Input class
 
