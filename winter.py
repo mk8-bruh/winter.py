@@ -149,8 +149,8 @@ class Terminal:
         return Terminal.Escape(f"{';'.join([Terminal.style.get(arg, ('',''))[1] for arg in args])}m", **kwargs)
     
     @staticmethod
-    def SetColor(*args, **kwargs):
-        return Terminal.Escape(f"{';'.join([Terminal.colors.get(arg, ('',''))[0] for arg in args])}m", **kwargs)
+    def SetColor(c, **kwargs):
+        return Terminal.Escape(f"{Terminal.colors.get(c, ('',''))[0]}m", **kwargs)
     
     @staticmethod
     def ResetColor(**kwargs):
@@ -158,7 +158,7 @@ class Terminal:
 
     @staticmethod
     def SetBackground(*args, **kwargs):
-        return Terminal.Escape(f"{';'.join([Terminal.colors.get(arg, ('',''))[1] for arg in args])}m", **kwargs)
+        return Terminal.Escape(f"{Terminal.colors.get(c, ('',''))[1]}m", **kwargs)
     
     @staticmethod
     def ResetBackground(**kwargs):
