@@ -257,7 +257,7 @@ class Program:
     currentState = None
     exit = False
     deltaTime = 0
-    def __init__(self, width, height, name = "", killKey = "escape"):
+    def __init__(self, width, height, name = None, killKey = "escape"):
         self.width, self.height = width, height
         self.name = name
         self.killKey = killKey
@@ -311,5 +311,5 @@ class Program:
         Terminal.Clear()
         Terminal.ResetStyle()
         Terminal.HomeCursor()
-        Terminal.Print(("╔" + centerString(f" {self.name} ", self.width, "═") + "╗\n") + ("║" + " " * self.width + "║\n") * self.height + ("╚" + "═" * self.width + "╝"))
+        Terminal.Print(("╔" + centerString(f" {self.name} " if self.name else "", self.width, "═") + "╗\n") + ("║" + " " * self.width + "║\n") * self.height + ("╚" + "═" * self.width + "╝"))
         Terminal.Flush()
