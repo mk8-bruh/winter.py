@@ -21,11 +21,13 @@ print the text into the screen buffer
 `s`: the text to print
 `end`: the suffix, used for automatically inserting spaces or newlines (default: `""`)
 <hr>
+
 ```python
 Terminal.EmptyBuffer()
 ```
 clear the screen buffer
 <hr>
+
 ```python
 Terminal.Flush()
 ```
