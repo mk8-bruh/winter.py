@@ -14,9 +14,7 @@ to load the library. You can now begin using all the classes and utilities defin
 
 #### Print calls and the buffer
 
-```python
-Terminal.Print(s, end = "")
-```
+`Terminal.Print(s, end = "")`{:.python}
 print the text into the screen buffer
 `s`: the text to print
 `end`: the suffix, used for automatically inserting spaces or newlines (default: `""`)
