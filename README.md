@@ -1,5 +1,5 @@
-# winter.py
-**Win**~~dows~~ **ter**~~minal~~ <br>
+# About
+_**win**_(dows) _**ter**_(minal) <br>
 a proof-of-concept library enhancing the capabilities of the Windows terminal
 
 # Installation
