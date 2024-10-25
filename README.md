@@ -2,6 +2,7 @@
 enhancing the capabilities of the Windows terminal
 
 # Installation
+
 Download the file `winter.py` to the same directory as your program. Inside your program, write
 ```python
 from winter import *
@@ -9,6 +10,34 @@ from winter import *
 to load the library. You can now begin using all the classes and utilities defined within.
 
 # Usage
+
+```python
+from winter import *
+
+program = Program(40, 15, "Hello World!", "escape")
+
+class HelloWorld(ProgramState):
+  def Enter(self, prev):
+    window.Clear()
+    Terminal.ResetStyle()
+    Terminal.SetCursorPosition(1, 6)
+    Terminal.Print(centerString("Hello world!!!", program.width))
+    Terminal.Flush()
+  def Keypress(self, key):
+    Terminal.ResetStyle()
+    Terminal.SetCursorPosition(1, 8)
+    Terminal.Print(centerString(f"pressed key: {key}", program.width))
+    Terminal.Flush()
+  def Exit(self, next):
+    Terminal.ResetStyle()
+    Terminal.SetCursorPosition(1, 10)
+    Terminal.Print(centerString(f"Goodbye!!!", program.width))
+    Terminal.Flush()
+
+program.Start(HelloWorld())
+```
+
+# Documentation
 
 ## Terminal class
 
@@ -140,6 +169,12 @@ Terminal.DisableStyle(...)
 disable the given style(s)
 * `...`: the style(s)
 
+#### Terminal.ResetStyle
+```python
+Terminal.ResetStyle()
+```
+resets the entire style, _**including text and background color**_
+
 #### Available colors
 
 * `black`
@@ -187,12 +222,6 @@ reset the bakcground color back to default
 Terminal.ResetColor()
 ```
 set the text color back to default
-
-#### Terminal.ResetStyle
-```python
-Terminal.ResetStyle()
-```
-resets the entire style, **including text and background color**
 
 ## Input class
 
