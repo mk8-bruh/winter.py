@@ -267,7 +267,7 @@ returns the next keypress in the buffer (**WARNING** - this is a blocking call; 
 
 ## ProgramState class
 
-A base class for all screens/scenes in the program. Every class representing a different screen has to inherit from this class. `ProgramState` subclasses should be instances of the class, not singleton/static classes.
+A base class for all screens/scenes in the program. Every class representing a different screen has to inherit from this class.
 
 ### Callbacks
 
@@ -304,7 +304,7 @@ called when this state is made inactive due to a `SwitchState` call
 
 ## Program class
 
-The class for running and managing your custom `ProgramStates`.
+The class for running and managing your custom `ProgramState`s.
 
 ### Creating a program
 
