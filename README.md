@@ -142,39 +142,6 @@ re-enable cursor visibility
 
 ### Styling and colors
 
-#### Available styles
-
-* `bold`
-* `dim`
-* `italic`
-* `underline`
-* `blink`
-* `invert`
-* `hidden`
-* `strikethrough`
-
-(the appearance of these styles might vary between terminals)
-
-#### Terminal.EnableStyle
-```python
-Terminal.EnableStyle(...)
-```
-enable the given style(s)
-* `...`: the style(s)
-
-#### Terminal.DisableStyle
-```python
-Terminal.DisableStyle(...)
-```
-disable the given style(s)
-* `...`: the style(s)
-
-#### Terminal.ResetStyle
-```python
-Terminal.ResetStyle()
-```
-resets the entire style, _**including text and background color**_
-
 #### Available colors
 
 * `black`
@@ -222,6 +189,39 @@ reset the bakcground color back to default
 Terminal.ResetColor()
 ```
 set the text color back to default
+
+#### Available styles
+
+* `bold`
+* `dim`
+* `italic`
+* `underline`
+* `blink`
+* `invert`
+* `hidden`
+* `strikethrough`
+
+(the appearance of these styles might vary between terminals)
+
+#### Terminal.EnableStyle
+```python
+Terminal.EnableStyle(...)
+```
+enable the given style(s)
+* `...`: the style(s)
+
+#### Terminal.DisableStyle
+```python
+Terminal.DisableStyle(...)
+```
+disable the given style(s)
+* `...`: the style(s)
+
+#### Terminal.ResetStyle
+```python
+Terminal.ResetStyle()
+```
+resets the entire style, _**including text and background color**_
 
 ## Input class
 
