@@ -285,8 +285,8 @@ program = Program(width, height, name = None, killKey = "escape")
 ```
 * `width`: the width of the "window"
 * `height`: the height of the "window"
-* `name`: the title, displayed in the center of the top border, can be disabled by being set to `None` (default: `None`)
-* `killKey`: a key which automatically terminates the program, can be disabled by being set to `None` (default: `"escape"`)
+* `name`: the title, displayed in the center of the top border (default: `None`)
+* `killKey`: a key which automatically terminates the program (default: `"escape"`)
 * `program`: the resultant `Program` instance
 
 ### Properties
