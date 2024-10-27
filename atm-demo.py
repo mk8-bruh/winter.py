@@ -307,18 +307,18 @@ class PINScreen(ProgramState):
 class AccountScreen(Menu):
     def __init__(self, account):
         self.account = account
-        super().__init__(f"Logged in as {Terminal.EnableStyle('bold', gen = True) + Terminal.SetColor('cyan', gen = True)}{self.account.name}{Terminal.ResetStyle(gen = True)}\nBalance: {Terminal.EnableStyle('bold', gen = True) + Terminal.SetColor('green', gen = True)}{self.account.balance}{Terminal.ResetStyle(gen = True)}",
-        [
-            MenuItem("deposit",  lambda *_: window.SwitchState(Dialog(self.account.Deposit,  "Deposit",  [DialogValue("amount", "float")], self))),
-            MenuItem("withdraw", lambda *_: window.SwitchState(Dialog(self.account.Withdraw, "Withdraw", [DialogValue("amount", "float")], self))),
-            MenuItem("send",     lambda *_: window.SwitchState(Dialog(self.account.Send,     "Send",     [DialogValue("recipient", "string"), DialogValue("amount", "float")], self))),
-            MenuItem("logout",   lambda *_: window.SwitchState(StartScreen())),
-            MenuItem("remove",   lambda *_: window.SwitchState(Dialog(lambda c: Account.Remove(self.account, c), "Remove", nextScreen = self)))
-        ])
+        super().__init__(f"Logged in as {Terminal.EnableStyle('bold', gen = True) + Terminal.SetColor('cyan', gen = True)}{self.account.name}{Terminal.ResetStyle(gen = True)}\nBalance: {Terminal.EnableStyle('bold', gen = True) + Terminal.SetColor('green', gen = True)}{self.account.balance}{Terminal.ResetStyle(gen = True)}", [])
     def Enter(self, prev):
         if not self.account in Account.all:
             window.SwitchState(StartScreen())
         else:
+            self.items = [
+                MenuItem("deposit",  lambda *_: window.SwitchState(Dialog(self.account.Deposit,  "Deposit",  [DialogValue("amount", "float")], self))),
+                MenuItem("withdraw", lambda *_: window.SwitchState(Dialog(self.account.Withdraw, "Withdraw", [DialogValue("amount", "float")], self))),
+                MenuItem("send",     lambda *_: window.SwitchState(Dialog(self.account.Send,     "Send",     [DialogValue("recipient", "string"), DialogValue("amount", "float")], self))),
+                MenuItem("logout",   lambda *_: window.SwitchState(StartScreen())),
+                MenuItem("remove",   lambda *_: window.SwitchState(Dialog(lambda c: Account.Remove(self.account, c), "Remove", nextScreen = self)))
+            ]
             super().Enter(prev)
 
 window.Run(StartScreen())
