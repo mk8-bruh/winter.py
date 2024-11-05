@@ -42,6 +42,8 @@ class HelloWorld(ProgramState):
 program.Start(HelloWorld())
 ```
 
+try pressing different keys on the keyboard to display them on screen, then press `escape` to exit the program
+
 # Demos
 
 ## [ATM demo](https://github.com/mk8-bruh/winter.py/blob/main/atm-demo.py)
