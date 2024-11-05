@@ -157,7 +157,7 @@ class Terminal:
         return Terminal.SetColor("default", **kwargs)
 
     @staticmethod
-    def SetBackground(*args, **kwargs):
+    def SetBackground(c, **kwargs):
         return Terminal.Escape(f"{Terminal.colors.get(c, ('',''))[1]}m", **kwargs)
     
     @staticmethod
