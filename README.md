@@ -23,7 +23,7 @@ program = Program(40, 15, "Hello World!", "escape")
 
 class HelloWorld(ProgramState):
   def Enter(self, prev):
-    window.Clear()
+    program.Clear()
     Terminal.ResetStyle()
     Terminal.SetCursorPosition(1, 6)
     Terminal.Print(centerString("Hello world!!!", program.width))
