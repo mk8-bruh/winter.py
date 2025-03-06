@@ -50,7 +50,7 @@ class Terminal:
     
     @staticmethod
     def EmptyBuffer():
-        Terminal.buffer =""
+        Terminal.buffer = ""
 
     @staticmethod
     def Flush():
@@ -311,5 +311,5 @@ class Program:
         Terminal.Clear()
         Terminal.ResetStyle()
         Terminal.HomeCursor()
-        Terminal.Print(("╔" + centerString(f" {self.name} " if self.name else "", self.width, "═") + "╗\n") + ("║" + " " * self.width + "║\n") * self.height + ("╚" + "═" * self.width + "╝"))
+        Terminal.Print(("╔" + centerString(f" {self.name} " if self.name else "", self.width, "═") + "╗\n") + ("║" + " " * self.width + "║\n") * self.height + ("╚" + "═" * self.width + "╝"), end="")
         Terminal.Flush()
