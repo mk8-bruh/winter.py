@@ -50,7 +50,7 @@ class Terminal:
     
     @staticmethod
     def EmptyBuffer():
-        Terminal.buffer =""
+        Terminal.buffer = ""
 
     @staticmethod
     def Flush():
@@ -176,28 +176,36 @@ class Input:
         b'\x1b': 'escape',
         b'\x08': 'backspace',
         b'\xe0': {
-            b'H': 'up',
-            b'P': 'down',
-            b'K': 'left',
-            b'M': 'right',
-            b'S': 'delete',
-            b'R': 'insert',
-            b'G': 'home',
-            b'O': 'end',
-            b'I': 'pageup',
-            b'Q': 'pagedown'
+            b'\x47': 'home',
+            b'\x48': 'up',
+            b'\x49': 'pageup',
+            b'\x4b': 'left',
+            b'\x4c': 'center', # numpad 5
+            b'\x4d': 'right',
+            b'\x4f': 'end',
+            b'\x50': 'down',
+            b'\x51': 'pagedown',
+            b'\x52': 'insert',
+            b'\x53': 'delete',
+            b'\x85': 'f11',
+            b'\x86': 'f12'
         },
         b'\x00': {
-            b';': 'f1',
-            b'<': 'f2',
-            b'=': 'f3',
-            b'>': 'f4',
-            b'?': 'f5',
-            b'@': 'f6',
-            b'A': 'f7',
-            b'B': 'f8',
-            b'C': 'f9',
-            b'D': 'f10'
+            b'\x3b': 'f1',
+            b'\x3c': 'f2',
+            b'\x3d': 'f3',
+            b'\x3e': 'f4',
+            b'\x3f': 'f5',
+            b'\x40': 'f6',
+            b'\x41': 'f7',
+            b'\x42': 'f8',
+            b'\x43': 'f9',
+            b'\x44': 'f10',
+            b'\x48': 'up',
+            b'\x4b': 'left',
+            b'\x4c': 'center', # numpad 5
+            b'\x4d': 'right',
+            b'\x50': 'down',
         },
         b'\x01': 'ctrl+a',
         b'\x02': 'ctrl+b',
@@ -235,7 +243,6 @@ class Input:
     def GetKeypress(codes = keycodes):
         if kbhit():
             ch = getch()
-            #print(ch)
             k = codes.get(ch)
             if type(k) == dict:
                 return Input.GetKeypress(k)
@@ -311,5 +318,5 @@ class Program:
         Terminal.Clear()
         Terminal.ResetStyle()
         Terminal.HomeCursor()
-        Terminal.Print(("╔" + centerString(f" {self.name} " if self.name else "", self.width, "═") + "╗\n") + ("║" + " " * self.width + "║\n") * self.height + ("╚" + "═" * self.width + "╝"))
+        Terminal.Print(("╔" + centerString(f" {self.name} " if self.name else "", self.width, "═") + "╗\n") + ("║" + " " * self.width + "║\n") * self.height + ("╚" + "═" * self.width + "╝"), end="")
         Terminal.Flush()
