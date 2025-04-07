@@ -24,20 +24,21 @@ SOFTWARE.
 
 '''
 
+from __future__ import annotations
 from math import floor, ceil
 from time import perf_counter as timer
 from msvcrt import kbhit, getch
 from re import finditer
 from traceback import format_exc
 
-def centerString(s, w, c = ' '):
+def centerString(s: str, width: int, pad: str = ' '):
     ls = len(s)
     for m in finditer('\x1b.*?\0', s):
         ls -= len(m.group(0))
-    if ls > w:
-        return s[floor((ls - w) / 2):][:w]
-    elif ls < w:
-        return c[0] * floor((w - ls) / 2) + s + c[0] * ceil((w - ls) / 2)
+    if ls > width:
+        return s[floor((ls - width) / 2):][:width]
+    elif ls < width:
+        return pad[0] * floor((width - ls) / 2) + s + pad[0] * ceil((width - ls) / 2)
     else:
         return s
 
@@ -58,7 +59,7 @@ class Terminal:
         Terminal.EmptyBuffer()
 
     @staticmethod
-    def Escape(s, inst = False, gen = False):
+    def Escape(s: str, inst = False, gen = False):
         if gen:
             return f"\x1b[{s}\0"
         elif inst:
@@ -98,7 +99,7 @@ class Terminal:
         return Terminal.Escape("H", **kwargs)
 
     @staticmethod
-    def SetCursorPosition(x, y, **kwargs):
+    def SetCursorPosition(x: int, y: int, **kwargs):
         return Terminal.Escape(f"{y + 1};{x + 1}H", **kwargs)
     
     @staticmethod
@@ -149,7 +150,7 @@ class Terminal:
         return Terminal.Escape(f"{';'.join([Terminal.style.get(arg, ('',''))[1] for arg in args])}m", **kwargs)
     
     @staticmethod
-    def SetColor(c, **kwargs):
+    def SetColor(c: str, **kwargs):
         return Terminal.Escape(f"{Terminal.colors.get(c, ('',''))[0]}m", **kwargs)
     
     @staticmethod
@@ -157,7 +158,7 @@ class Terminal:
         return Terminal.SetColor("default", **kwargs)
 
     @staticmethod
-    def SetBackground(c, **kwargs):
+    def SetBackground(c: str, **kwargs):
         return Terminal.Escape(f"{Terminal.colors.get(c, ('',''))[1]}m", **kwargs)
     
     @staticmethod
@@ -214,12 +215,12 @@ class Input:
         b'\x05': 'ctrl+e',
         b'\x06': 'ctrl+f',
         b'\x07': 'ctrl+g',
-        b'\x08': 'ctrl+h',
-        # ctrl+i = \t
-        # ctrl+j = \n
+        # \x08 = ctrl+h = backspace
+        # \x09 = ctrl+i = \t
+        # \x0a = ctrl+j = \n
         b'\x0b': 'ctrl+k',
         b'\x0c': 'ctrl+l',
-        # ctrl+m = \r
+        # \x0d = ctrl+m = \r
         b'\x0e': 'ctrl+n',
         b'\x0f': 'ctrl+o',
         b'\x10': 'ctrl+p',
@@ -240,7 +241,7 @@ class Input:
         return kbhit()
 
     @staticmethod
-    def GetKeypress(codes = keycodes):
+    def GetKeypress(codes: dict[bytes] = keycodes):
         if kbhit():
             ch = getch()
             k = codes.get(ch)
@@ -250,25 +251,25 @@ class Input:
                 return k or ch.decode()
 
 class ProgramState:
-    def Enter(self, prev, *args, **kwargs):
+    def Enter(self, prev: ProgramState, *args, **kwargs):
         pass
-    def Update(self, dt):
+    def Update(self, dt: float):
         pass
-    def Keypress(self, key):
+    def Keypress(self, key: str):
         pass
-    def Exit(self, next):
+    def Exit(self, next: ProgramState):
         pass
 
 class Program:
     # state machine
-    currentState = None
+    currentState: ProgramState = None
     exit = False
-    deltaTime = 0
-    def __init__(self, width, height, name = None, killKey = "escape"):
+    deltaTime: float = 0
+    def __init__(self, width: int, height: int, name: str = None, killKey = "escape"):
         self.width, self.height = width, height
         self.name = name
         self.killKey = killKey
-    def SwitchState(self, state, *args, **kwargs):
+    def SwitchState(self, state: ProgramState, *args, **kwargs):
         if isinstance(state, ProgramState):
             prev = None
             if self.currentState:
@@ -278,7 +279,7 @@ class Program:
             self.currentState.Enter(prev, *args, **kwargs)
         else:
             raise TypeError("All states must inherit from ProgramState")
-    def Run(self, state, *args, **kwargs):
+    def Run(self, state: ProgramState, *args, **kwargs):
         Terminal.Escape("=7l")
         Terminal.HideCursor()
         Terminal.Flush()
@@ -300,12 +301,12 @@ class Program:
             if self.currentState:
                 self.currentState.Exit(None)
             Terminal.ResetStyle()
-            Terminal.SetCursorPosition(0, self.height + 2)
+            Terminal.SetCursorPosition(0, self.height + 1)
             Terminal.ShowCursor()
             Terminal.Flush()
         except Exception:
             Terminal.ResetStyle()
-            Terminal.SetCursorPosition(0, self.height + 2)
+            Terminal.SetCursorPosition(0, self.height + 1)
             Terminal.ShowCursor()
             Terminal.Flush()
             print(format_exc())
