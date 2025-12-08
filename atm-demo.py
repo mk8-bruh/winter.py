@@ -11,6 +11,7 @@ CONTROLS:
 '''
 
 from winter import *
+from math import ceil
 
 class Account:
     all = []
