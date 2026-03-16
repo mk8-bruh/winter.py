@@ -1,1 +1,1 @@
-from winter.winter import Terminal, Input, ProgramState, Program, centerString
+from .winter import Terminal, Input, ProgramState, Program, centerString
